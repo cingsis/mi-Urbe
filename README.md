@@ -1,3 +1,3 @@
 # mi-Urbe
 
-Es una solución integrada donde los habitantes de una comunidad estarán conectados con la administración de su vivienda.
+Es una soluciÃ³n integrada donde los habitantes de una comunidad estarÃ¡n conectados con la administraciÃ³n de su vivienda.
