@@ -1,0 +1,54 @@
+
+.container{
+  background-color: #FFF !important;
+  margin-top: 3%;
+  margin-bottom: 5%;
+  border-radius: 3px;
+}
+
+.titleingresar{
+  font-size: 20px;
+  color: #91202E;
+  text-align: center;
+}
+
+#correo{
+  background-color: #E8EAEC;
+}
+
+#pass{
+  background-color: #E8EAEC;
+}
+
+.top{
+  margin-top: 5%;
+}
+
+.color{
+  color: #CCC;
+}
+
+.right{
+  text-align: right;
+}
+
+.right a{
+  text-decoration: none;
+}
+
+.center a{
+  text-decoration: none;
+}
+
+#registrar{
+  text-align: center;
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #91202E;
+  color: #FFF;
+}
+
+.center{
+  text-align: center;
+}
