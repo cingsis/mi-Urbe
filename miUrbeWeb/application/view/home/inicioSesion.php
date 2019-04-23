@@ -48,7 +48,7 @@
         <p>&nbsp;</p>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 center">
-        <button type="submit" name="registrar" id="registrar">Ingresar</button>
+        <button type="submit" name="iniciar" id="iniciar">Ingresar</button>
       </div>
     </div>
   </form>
@@ -58,7 +58,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4">
       <p class="center">
-        <a href="#">Registrar. Quiero crear mi cuenta</a>
+        <a href="<?= URL; ?>home/registro">Registrar. Quiero crear mi cuenta</a>
       </p>
     </div>
   </div>

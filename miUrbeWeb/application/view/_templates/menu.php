@@ -2,7 +2,7 @@
 <div class="menu">
   <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-2 p-4">
-      <img src="<?= URL; ?>img/casita.jpg" alt="logo" class="logo">
+      <a href="<?= URL; ?>home/index"><img src="<?= URL; ?>img/casita.jpg" alt="logo" class="logo"></a>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1">
       <h1 class="title">Mi Urbe</h1>

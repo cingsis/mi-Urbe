@@ -1,0 +1,7 @@
+PREGUNTAS CON RESPECTO AL MODELO RELACIONAL
+
+1. En la tabla llamada UTB_TIPOUSUARIO hay una columna que se llama TipoUsuario, ¿Qué tipos de usuario deben ir allí?
+
+2. En la tabla llamada UTB_TIPOAUTENTICACION hay una columna llamada TipoAutenticación. ¿Que tipos de autenticación se manejarán?
+
+3. ¿Cuáles serán los estados que se almacenarán en la tabla UTB_ESTADOUSUARIO?

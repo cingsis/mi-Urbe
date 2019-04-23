@@ -6,17 +6,17 @@
   border-radius: 3px;
 }
 
-.titleingresar{
+.titleadmin{
   font-size: 20px;
   color: #91202E;
   text-align: center;
 }
 
-#correo{
+#correoadmin{
   background-color: #E8EAEC;
 }
 
-#pass{
+#passadmin{
   background-color: #E8EAEC;
 }
 
@@ -40,7 +40,7 @@
   text-decoration: none;
 }
 
-#iniciar{
+#ingresaramin{
   text-align: center;
   padding: 5px 15px;
   border-radius: 5px;
