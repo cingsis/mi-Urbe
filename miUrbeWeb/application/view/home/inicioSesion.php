@@ -1,6 +1,19 @@
 <?php require APP . 'view/_templates/menu.php'; ?>
 
-<div class="container p-4">
+<div class="container p-4" id="container-iniciosesion">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= URL; ?>home/index">Home</a></li>
+        <?php if ($_SERVER['REQUEST_URI'] == "/miUrbe/home/inicioSesion"):?>
+        <li class="breadcrumb-item active"><a href="<?= URL; ?>home/inicioSesion">Inicio Sesión</a></li>
+      <?php else: ?>
+      <?php endif; ?>
+      </ol>
+    </nav>
+    </div>
+  </div>
   <div class="row">
     <div class="col-xs-12 col-sm12 col-md-12">
       <h1 class="titleingresar">Ingresar</h1>
@@ -39,7 +52,7 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4">
         <p class="right">
-          <a href="#">Recordar mi contraseña</a>
+          <a href="<?= URL; ?>home/recuperarPassword">Recordar mi contraseña</a>
         </p>
       </div>
     </div>

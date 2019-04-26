@@ -1,12 +1,56 @@
 <?php require APP . 'view/_templates/menu.php'; ?>
 
-<div class="container p-4">
+<div class="container p-4" id="container-registro">
   <div class="row">
-    <div class="col-xs-12 col-sm12 col-md-12">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= URL; ?>home/index">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?= URL; ?>home/inicioSesion">Inicio Sesión</a></li>
+        <?php if ($_SERVER['REQUEST_URI'] == "/miUrbe/home/registro"):?>
+        <li class="breadcrumb-item active" aria-current="page"><a href="#">Registro</a></li>
+      <?php else: ?>
+      <?php endif; ?>
+      </ol>
+    </nav>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3">
+          &nbsp;
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6">
+          <?php if (isset($_SESSION['message']) && isset($_SESSION['type']) &&
+                    $_SESSION['type'] == "success"): ?>
+
+            <div class="alert alert-<?= $_SESSION['type'] ?>" role="alert">
+              <i class="fas fa-check"></i>&nbsp;<?= $_SESSION['message']; ?>
+            </div>
+
+          <?php session_unset(); ?>
+          <?php endif; ?>
+
+          <?php if (isset($_SESSION['message']) && isset($_SESSION['type']) &&
+                    $_SESSION['type'] == "danger"): ?>
+
+            <div class="alert alert-<?= $_SESSION['type'] ?>" role="alert">
+              <i class="fas fa-exclamation-triangle"></i>&nbsp;<?= $_SESSION['message']; ?>
+            </div>
+
+          <?php session_unset(); ?>
+          <?php endif; ?>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3">
+          &nbsp;
+        </div>
+      </div>
+
       <h1 class="titleregistro">mi Registro</h1>
     </div>
   </div>
-  <form class="form-horizontal" action="#" method="post" enctype="multipart/form-data">
+  <form class="form-horizontal" action="<?= URL; ?>home/nuevoUsuario" method="post" enctype="multipart/form-data">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 icon">
         <i class="fas fa-user fa-5x"></i>
@@ -62,7 +106,7 @@
           <label for="contrasenia" class="color">mi Contraseña</label>
         </div>
         <div class="form-group">
-          <input type="text" name="pass" id="contrasenia" class="form-control" required>
+          <input type="password" name="pass" id="contrasenia" class="form-control" required>
         </div>
       </div>
     </div>
@@ -75,7 +119,7 @@
           <label for="contrasenia2" class="color">mi Contraseña Nuevamente</label>
         </div>
         <div class="form-group">
-          <input type="text" name="pass2" id="contrasenia2" class="form-control" required>
+          <input type="password" name="pass2" id="contrasenia2" class="form-control" required>
         </div>
       </div>
     </div>
@@ -84,7 +128,7 @@
         <p>&nbsp;</p>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 center">
-        <button type="submit" name="registro" id="registro">Registro</button>
+        <button type="submit" name="btnregistro" id="registro">Registro</button>
       </div>
     </div>
   </form>

@@ -1,6 +1,21 @@
 <?php require APP . 'view/_templates/menu.php'; ?>
 
-<div class="container p-4">
+<div class="container p-4" id="container-login-admin">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <nav aria-label="breadcrumb" id="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= URL; ?>home/index">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?= URL; ?>home/inicioSesion">Inicio Sesion</a></li>
+        <li class="breadcrumb-item"><a href="<?= URL; ?>home/registro">Registro</a></li>
+        <?php if ($_SERVER['REQUEST_URI'] == "/miUrbe/home/loginAdministracion"):?>
+        <li class="breadcrumb-item active"><a href="<?= URL; ?>home/loginAdministracion">Administración</a></li>
+      <?php else: ?>
+      <?php endif; ?>
+      </ol>
+    </nav>
+    </div>
+  </div>
   <div class="row">
     <div class="col-xs-12 col-sm12 col-md-12">
       <h1 class="titleadmin">Administración</h1>

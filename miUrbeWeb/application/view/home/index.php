@@ -7,9 +7,11 @@
       <p>&nbsp;</p>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4">
-      <button type="button" name="button" class="btningresar">
-        <a href="<?= URL; ?>home/inicioSesion">Ingresar</a>
-      </button>
+      <form class="form-horizontal" action="<?= URL; ?>home/inicioSesion" method="post">
+        <button type="submit" name="btningresar" class="btningresar">
+          Ingresar
+        </button>
+      </form>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4">
       <p>&nbsp;</p>

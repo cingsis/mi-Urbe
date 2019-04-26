@@ -1,4 +1,54 @@
 
+.alert-danger{
+  text-align: center !important;
+}
+
+.alert-success{
+  text-align: center !important;
+}
+
+.active{
+  font-weight: bold;
+}
+
+.color{
+  color: #CCC;
+}
+
+.top{
+  margin-top: 5%;
+}
+
+.right{
+  text-align: right;
+}
+
+.right a{
+  text-decoration: none;
+}
+
+.center{
+  text-align: center;
+}
+
+.center a{
+  text-decoration: none;
+}
+
+input{
+  background-color: #E8EAEC !important;
+}
+
+#breadcrumb{
+  float: left !important;
+  padding: 2% !important;
+  border: none !important;
+}
+
+#breadcrumb ol li a{
+  text-decoration: none;
+}
+
 .image{
   width: 100%;
   height: 100%;
@@ -11,9 +61,6 @@
   border: none;
   border-radius: 5px;
   padding: 5px 12px;
-}
-
-.btningresar a{
   text-decoration: none;
   color: #FFF;
 }

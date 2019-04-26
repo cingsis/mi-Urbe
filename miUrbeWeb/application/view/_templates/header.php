@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="<?php echo URL ?>css/registro.css">
     <link rel="stylesheet" href="<?php echo URL ?>css/administracion.css">
     <link rel="stylesheet" href="<?php echo URL ?>css/dashboard.css">
+    <link rel="stylesheet" href="<?php echo URL ?>css/edicion.css">
+    <link rel="stylesheet" href="<?php echo URL ?>css/nuevaUrbanizacion.css">
     <link rel="stylesheet" href="<?php echo URL ?>fonts/grand-hotel.ttf">
 
     <!-- Font Awesome -->

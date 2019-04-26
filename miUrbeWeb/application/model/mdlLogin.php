@@ -4,7 +4,15 @@
     class mdlLogin
     {
 
-      private $attributte;
+      private $IdUsuario;
+      private $NombreUsuario;
+      private $Correo;
+      private $Clave;
+      private $NumeroCelular;
+      private $IdTipoAutenticacion;
+      private $Imagen;
+      private $FechaCreacion;
+      private $FechaModificacion;
       private $db;
 
       public function __SET($attr, $valor)
@@ -26,25 +34,24 @@
         }
       }
 
-      public function save()
+      public function insertarNuevoUsuario()
       {
-        $sql = "CAll save(?)";
+        $sql = "CAll SP_insertarNuevoUsuario(?, ?, ?, ?, ?, ?, ?)";
         try {
           $stm = $this->db->prepare($sql);
-          $stm->bindParam(1, $this->atributte);
+          $stm->bindParam(1, $this->NombreUsuario);
+          $stm->bindParam(2, $this->Correo);
+          $stm->bindParam(3, $this->Clave);
+          $stm->bindParam(4, $this->NumeroCelular);
+          $stm->bindParam(5, $this->IdTipoAutenticacion);
+          $stm->bindParam(6, $this->Imagen);
+          $stm->bindParam(7, $this->FechaModificacion);
           $result = $stm->execute();
           return $result;
         } catch (PDOException $e) {
           echo $e->getMessage();
         }
       }
-
-      // public function list(){
-      //   $sql = "CALL  list()";
-      //   $stm = $this->db->prepare($sql);
-      //   $stm->execute();
-      //   return $stm->fetchAll(PDO::FETCH_ASSOC);
-      // }
 
     }
  ?>
