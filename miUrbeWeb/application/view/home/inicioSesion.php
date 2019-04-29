@@ -15,11 +15,30 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-3">
+      &nbsp;
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <?php if (isset($_SESSION['errorcampos']) && isset($_SESSION['errortype']) &&
+                $_SESSION['errortype'] == "danger"): ?>
+
+        <div class="alert alert-<?= $_SESSION['errortype'] ?>" role="alert">
+          <i class="fas fa-exclamation-triangle"></i>&nbsp;<?= $_SESSION['errorcampos']; ?>
+        </div>
+
+      <?php session_unset(); ?>
+      <?php endif; ?>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3">
+      &nbsp;
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xs-12 col-sm12 col-md-12">
       <h1 class="titleingresar">Ingresar</h1>
     </div>
   </div>
-  <form class="form-horizontal" action="#" method="post">
+  <form class="form-horizontal" action="<?= URL; ?>home/validarInicioSesion" method="post" name="login" id="inicioSesion">
     <div class="row">
       <div class="col-xs-12 col-sm12 col-md-4">
         <p>&nbsp;</p>
@@ -29,7 +48,11 @@
           <label for="correo" class="color">mi Correo Electrónico</label>
         </div>
         <div class="form-group">
-          <input type="email" name="correo" id="correo" class="form-control" autofocus required>
+          <input type="email" name="correo" id="correo" class="form-control" autofocus required onkeyup="formatoEmail()">
+
+          <div class="alert alert-danger ocultar" role="alert" id="avisoformatoemail">
+            <i class="fas fa-exclamation-triangle"></i>&nbsp;Formato del correo inválido (example@micorreo.com)
+          </div>
         </div>
       </div>
     </div>
@@ -42,7 +65,11 @@
           <label for="pass" class="color">mi Contraseña</label>
         </div>
         <div class="form-group">
-          <input type="password" name="pass" id="pass" class="form-control" required>
+          <input type="password" name="pass" id="pass" class="form-control" required onkeyup="longitudPassword()">
+
+          <div class="alert alert-danger ocultar" role="alert" id="longitudPass">
+            <i class="fas fa-exclamation-triangle"></i>&nbsp;La contraseña debe contener como mínimo 8 caracteres
+          </div>
         </div>
       </div>
     </div>

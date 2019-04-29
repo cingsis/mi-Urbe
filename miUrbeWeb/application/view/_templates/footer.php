@@ -18,6 +18,7 @@
 
     <!-- Scripts propios -->
     <script src="<?php echo URL; ?>js/functions.js"></script>
-    <script src="<?php echo URL; ?>spanish.json"></script>
+    <script src="<?php echo URL; ?>js/registro.js"></script>
+    <script src="<?php echo URL; ?>js/login.js"></script>
 </body>
 </html>

@@ -1,3 +1,11 @@
+.ocultar{
+  display: none;
+  margin-top: 5%;
+}
+
+.obligatorio{
+  color: #f90707;
+}
 
 .alert-danger{
   text-align: center !important;

@@ -41,6 +41,16 @@
 
           <?php session_unset(); ?>
           <?php endif; ?>
+
+          <?php if (isset($_SESSION['errorcampos']) && isset($_SESSION['errortype']) &&
+                    $_SESSION['errortype'] == "danger"): ?>
+
+            <div class="alert alert-<?= $_SESSION['errortype'] ?>" role="alert">
+              <i class="fas fa-exclamation-triangle"></i>&nbsp;<?= $_SESSION['errorcampos']; ?>
+            </div>
+
+          <?php session_unset(); ?>
+          <?php endif; ?>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3">
           &nbsp;
@@ -50,7 +60,7 @@
       <h1 class="titleregistro">mi Registro</h1>
     </div>
   </div>
-  <form class="form-horizontal" action="<?= URL; ?>home/nuevoUsuario" method="post" enctype="multipart/form-data">
+  <form class="form-horizontal" action="<?= URL; ?>home/nuevoUsuario" method="post" enctype="multipart/form-data" name="registro" id="formRegistro">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 icon">
         <i class="fas fa-user fa-5x"></i>
@@ -64,23 +74,14 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 top">
         <div class="form-group">
-          <label for="nombre" class="color">mi Nombre</label>
+          <label for="nombre" class="color">mi Nombre <span class="obligatorio">*</span></label>
         </div>
         <div class="form-group">
-          <input type="text" name="name" id="nombre" class="form-control" autofocus required>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm12 col-md-4">
-        <p>&nbsp;</p>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4">
-        <div class="form-group">
-          <label for="email" class="color">mi Correo</label>
-        </div>
-        <div class="form-group">
-          <input type="email" name="correo" id="email" class="form-control" required>
+          <input type="text" name="name" id="nombre" class="form-control" autofocus required onkeyup="largoNombre()">
+
+          <div class="alert alert-danger ocultar" role="alert" id="avisolargonombre">
+            <i class="fas fa-exclamation-triangle"></i>&nbsp;El nombre debe contener como mínimo 3 caracteres
+          </div>
         </div>
       </div>
     </div>
@@ -90,23 +91,14 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4">
         <div class="form-group">
-          <label for="celular" class="color">mi Número Celular</label>
+          <label for="email" class="color">mi Correo <span class="obligatorio">*</span></label>
         </div>
         <div class="form-group">
-          <input type="text" name="cell" id="celular" class="form-control" required>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm12 col-md-4">
-        <p>&nbsp;</p>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4">
-        <div class="form-group">
-          <label for="contrasenia" class="color">mi Contraseña</label>
-        </div>
-        <div class="form-group">
-          <input type="password" name="pass" id="contrasenia" class="form-control" required>
+          <input type="email" name="correo" id="email" class="form-control" required onkeyup="ValidarFormatoEmail()">
+
+          <div class="alert alert-danger ocultar" role="alert" id="avisomailformato">
+            <i class="fas fa-exclamation-triangle"></i>&nbsp;Formato del correo inválido (example@micorreo.com)
+          </div>
         </div>
       </div>
     </div>
@@ -116,10 +108,48 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4">
         <div class="form-group">
-          <label for="contrasenia2" class="color">mi Contraseña Nuevamente</label>
+          <label for="celular" class="color">mi Número Celular <span class="obligatorio">*</span></label>
         </div>
         <div class="form-group">
-          <input type="password" name="pass2" id="contrasenia2" class="form-control" required>
+          <input type="text" name="cell" id="celular" class="form-control" required onkeyup="largoCelular()">
+
+          <div class="alert alert-danger ocultar" role="alert" id="avisolargocelular">
+            <i class="fas fa-exclamation-triangle"></i>&nbsp;El celular debe contener como mínimo 10 caracteres
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm12 col-md-4">
+        <p>&nbsp;</p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4">
+        <div class="form-group">
+          <label for="contrasenia" class="color">mi Contraseña <span class="obligatorio">*</span></label>
+        </div>
+        <div class="form-group">
+          <input type="password" name="pass" id="contrasenia" class="form-control" required onkeyup="largoPassword()">
+
+          <div class="alert alert-danger ocultar" role="alert" id="avisolargopass">
+            <i class="fas fa-exclamation-triangle"></i>&nbsp;La contraseña debe contener como mínimo 8 caracteres
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm12 col-md-4">
+        <p>&nbsp;</p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4">
+        <div class="form-group">
+          <label for="contrasenia2" class="color">mi Contraseña Nuevamente <span class="obligatorio">*</span></label>
+        </div>
+        <div class="form-group">
+          <input type="password" name="pass2" id="contrasenia2" class="form-control" required onkeyup="repetirPassword()">
+
+          <div class="alert alert-danger ocultar" role="alert" id="repetirpass">
+            <i class="fas fa-exclamation-triangle"></i>&nbsp;Las contraseñas no coinciden
+          </div>
         </div>
       </div>
     </div>

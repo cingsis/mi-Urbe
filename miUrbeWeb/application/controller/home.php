@@ -36,6 +36,35 @@ class Home extends Controller
     require APP . 'view/_templates/footer.php';
   }
 
+  public function validarInicioSesion()
+  {
+    if (isset($_POST['iniciar']))
+    {
+      $correo = $_POST['correo'];
+      $pass = $_POST['pass'];
+
+      if (strstr($correo, "@") && strstr($correo, ".") &&
+          strlen($pass) >= 8)
+      {
+        var_dump($_POST);
+        exit;
+      }
+      else
+      {
+        $_SESSION['errortype'] = "danger";
+        $_SESSION['errorcampos'] = "Los valores ingresados no cumplen con los parámetros,
+                                    por favor vuelva a intentar";
+        header("Location: " . URL . "home/inicioSesion");
+        exit;
+      }
+    }
+    else
+    {
+      header("Location: " . URL . "home/inicioSesion");
+      exit;
+    }
+  }
+
   public function registro()
   {
     require APP . 'view/_templates/header.php';
@@ -51,32 +80,52 @@ class Home extends Controller
       $nombre = $_POST['name'];
       $correo = $_POST['correo'];
       $pass = $_POST['pass'];
+      $pass2 = $_POST['pass2'];
       $celular = $_POST['cell'];
       $imagen = $_FILES['archivo']['name'];
 
-      // Acá se esta mandando le valor de las variables al modelo
-      $this->mdlLogin->__SET("NombreUsuario", $nombre);
-      $this->mdlLogin->__SET("Correo", $correo);
-      $this->mdlLogin->__SET("Clave", $this->Encrypt($pass));
-      $this->mdlLogin->__SET('NumeroCelular', $celular);
-      $this->mdlLogin->__SET('IdTipoAutenticacion', 1);//Mandamos el 1 como tipo de autenticación
-                                                      //ya que fue un usuario creado desde el formulario de registro.
-      $this->mdlLogin->__SET('Imagen', $imagen);
-      $this->mdlLogin->__SET('FechaModificacion', "");
-      $user = $this->mdlLogin->insertarNuevoUsuario();
-
-      if($user)
+      if (strlen($nombre) >= 3 && strstr($correo, "@") && strstr($correo, ".") &&
+          strlen($pass) >= 8 && strlen($celular) >= 10 && ($pass === $pass2))
       {
-        $_SESSION['type'] = "success";
-        $_SESSION['message'] = "Datos guardados correctamente.";
-        header("Location: " . URL . "home/registro");
+        // Acá se esta mandando le valor de las variables al modelo
+        $this->mdlLogin->__SET("NombreUsuario", $nombre);
+        $this->mdlLogin->__SET("Correo", $correo);
+        $this->mdlLogin->__SET("Clave", $this->Encrypt($pass));
+        $this->mdlLogin->__SET('NumeroCelular', $celular);
+        $this->mdlLogin->__SET('IdTipoAutenticacion', 1);//Mandamos el 1 como tipo de autenticación
+                                                        //ya que fue un usuario creado desde el formulario de registro.
+        $this->mdlLogin->__SET('Imagen', $imagen);
+        $this->mdlLogin->__SET('FechaModificacion', "");
+        $user = $this->mdlLogin->insertarNuevoUsuario();
+
+        if($user)
+        {
+          $_SESSION['type'] = "success";
+          $_SESSION['message'] = "Datos guardados correctamente.";
+          header("Location: " . URL . "home/registro");
+          exit;
+        }
+        else
+        {
+          $_SESSION['type'] = "danger";
+          $_SESSION['message'] = "Error insertando los datos, vuelve a intentarlo.";
+          header("Location: " . URL . "home/registro");
+          exit;
+        }
       }
       else
       {
-        $_SESSION['type'] = "danger";
-        $_SESSION['message'] = "Error insertando los datos, vuelve a intentarlo.";
+        $_SESSION['errortype'] = "danger";
+        $_SESSION['errorcampos'] = "Los valores ingresados no cumplen con los parámetros,
+                                    por favor vuelva a intentar";
         header("Location: " . URL . "home/registro");
+        exit;
       }
+    }
+    else
+    {
+      header("Location: " . URL . "home/registro");
+      exit;
     }
   }
 
