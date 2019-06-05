@@ -21,7 +21,7 @@
       <h1 class="titleadmin">Administración</h1>
     </div>
   </div>
-  <form class="form-horizontal" action="#" method="post">
+  <form class="form-horizontal" action="#" method="post" autocomplete="off">
     <div class="row">
       <div class="col-xs-12 col-sm12 col-md-4">
         <p>&nbsp;</p>

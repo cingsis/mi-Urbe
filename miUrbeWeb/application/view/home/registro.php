@@ -60,7 +60,7 @@
       <h1 class="titleregistro">mi Registro</h1>
     </div>
   </div>
-  <form class="form-horizontal" action="<?= URL; ?>home/nuevoUsuario" method="post" enctype="multipart/form-data" name="registro" id="formRegistro">
+  <form class="form-horizontal" action="<?= URL; ?>home/nuevoUsuario" method="post" enctype="multipart/form-data" name="registro" id="formRegistro" autocomplete="off">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 icon">
         <i class="fas fa-user fa-5x"></i>

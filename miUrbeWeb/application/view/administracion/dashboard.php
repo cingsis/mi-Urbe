@@ -40,7 +40,7 @@
             <td>COP</td>
             <td>
               <a href="#" class="icon-edit"><i class="fas fa-user fa-2x"></i></a>
-              <a href="<?= URL; ?>administracion/edicion"><i class="far fa-edit fa-2x"></i></a>
+              <a href="<?= URL; ?>administracion/edicion?id="><i class="far fa-edit fa-2x"></i></a>
             </td>
           </tr>
         </tbody>

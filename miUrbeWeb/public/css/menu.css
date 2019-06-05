@@ -3,6 +3,19 @@
   src: url('../fonts/grand-hotel.ttf');
 }
 
+.user a{
+  text-decoration: none;
+}
+
+.user{
+  list-style: none;
+  float: right;
+  padding: 1%;
+}
+
+.signout{
+  padding-left: 15%;
+}
 
 body{
   background-color: #FEDADA;

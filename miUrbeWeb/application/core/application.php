@@ -38,11 +38,11 @@ class Application
                     $this->url_controller->index();
                 }
                 else {
-                    header('location: ' . URL . 'problem');
+                    header('location: ' . URL . 'home/problem');
                 }
             }
         } else {
-            header('location: ' . URL . 'problem');
+            header('location: ' . URL . 'home/problem');
         }
     }
     /**

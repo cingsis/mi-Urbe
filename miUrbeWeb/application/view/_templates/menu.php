@@ -9,7 +9,24 @@
       <h2 class="subtitle">Siempre Conectados</h2>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-5">
-      &nbsp;
+      <?php if (isset($_SESSION['SESION_INICIADA']) && $_SESSION['SESION_INICIADA'] == TRUE): ?>
+
+        <li class="dropdown user">
+  	      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+  	         	 <strong><?= $_SESSION['EMAIL']; ?></strong>&nbsp;
+  	        <span class="caret"></span>
+  	      </a>
+          <ul class="dropdown-menu">
+  						<li class="signout">
+                <a href="<?= URL; ?>home/cerrarSesion">
+                  Cerrar Sesión&nbsp;&nbsp;<i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                </a>
+              </li>
+          </ul>
+        </li>
+
+      <?php else: ?>
+      <?php endif; ?>
     </div>
   </div>
   <div class="row margin">

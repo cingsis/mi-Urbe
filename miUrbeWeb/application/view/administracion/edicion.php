@@ -8,7 +8,7 @@
     <div class="col-xs-12 col-sm-12 col-md-5">
       <h1 class="titlemodificar">mi Urbe Modificar</h1>
     </div>
-  <form class="form-horizontal" action="#" method="post" enctype="multipart/form-data">
+  <form class="form-horizontal" action="#" method="post" enctype="multipart/form-data" autocomplete="off">
     <div class="col-xs-12 col-sm-12 col-md-4">
       <button type="button" name="edit" id="actualizar">Actualizar</button>
     </div>
@@ -98,7 +98,16 @@
           <label for="moneda" class="color">Moneda</label>
         </div>
         <div class="form-group">
-          <input type="text" name="moneda" id="moneda" placeholder="Moneda" class="form-control" required>
+          <select name="moneda" id="moneda" placeholder="Moneda" class="form-control" required>
+            <option value="">---</option>
+            <?php if (isset($_GET['id'])): ?>
+              <?php foreach ($moneda as $value): ?>
+                <option value="<?= $value['SiglasMoneda']; ?>" <?= $value['SiglasMoneda'] == $value['SiglasMoneda'] ? 'selected="selected"' : '' ?>><?= $value['SiglasMoneda'] .  " - " . $value['NombreMoneda']; ?></option>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <option value="<?= $value['SiglasMoneda']; ?>"><?= $value['SiglasMoneda'] .  " - " . $value['NombreMoneda']; ?></option>
+            <?php endif; ?>
+          </select>
         </div>
       </div>
     </div>

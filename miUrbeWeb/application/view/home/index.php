@@ -7,7 +7,7 @@
       <p>&nbsp;</p>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4">
-      <form class="form-horizontal" action="<?= URL; ?>home/inicioSesion" method="post">
+      <form class="form-horizontal" action="<?= URL; ?>home/inicioSesion" method="post" autocomplete="off">
         <button type="submit" name="btningresar" class="btningresar">
           Ingresar
         </button>

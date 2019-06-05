@@ -1,6 +1,5 @@
 <?php
 
-
 class Home extends Controller
 {
   private $mdlLogin;
@@ -22,6 +21,11 @@ class Home extends Controller
     return $result;
   }
 
+  public function problem()
+  {
+    echo "Página no encontrada";
+  }
+
   public function index()
   {
     require APP . 'view/_templates/header.php';
@@ -38,7 +42,7 @@ class Home extends Controller
 
   public function validarInicioSesion()
   {
-    if (isset($_POST['iniciar']))
+    if (isset($_POST['iniciar']) && isset($_POST['correo']) && isset($_POST['pass']))
     {
       $correo = $_POST['correo'];
       $pass = $_POST['pass'];
@@ -46,14 +50,39 @@ class Home extends Controller
       if (strstr($correo, "@") && strstr($correo, ".") &&
           strlen($pass) >= 8)
       {
-        var_dump($_POST);
-        exit;
+        $this->mdlLogin->__SET("Correo", $correo);
+        $this->mdlLogin->__SET("Clave", $this->Encrypt($pass));
+        $user = $this->mdlLogin->consultarDatosUsuario();
+
+        if(count($user) != 0)
+        {
+          foreach ($user as $value)
+          {
+            if ($value['Correo'] == $correo &&
+            $value['Clave'] == $this->Encrypt($pass))
+            {
+              $_SESSION['SESION_INICIADA'] = TRUE;
+              $_SESSION['USUARIO_ID'] = $value['idUsuario'];
+              $_SESSION['EMAIL'] = $value['Correo'];
+
+              header("Location: " . URL . "administracion/dashboard");
+              exit;
+            }
+          }
+        }
+        else
+        {
+          $_SESSION['type'] = "danger";
+          $_SESSION['message'] = "Las credenciales ingresadas son incorrectas";
+          header("Location: " . URL . "home/inicioSesion");
+          exit;
+        }
       }
       else
       {
         $_SESSION['errortype'] = "danger";
         $_SESSION['errorcampos'] = "Los valores ingresados no cumplen con los parámetros,
-                                    por favor vuelva a intentar";
+                                    por favor vuelva a intentar.";
         header("Location: " . URL . "home/inicioSesion");
         exit;
       }
@@ -63,6 +92,21 @@ class Home extends Controller
       header("Location: " . URL . "home/inicioSesion");
       exit;
     }
+  }
+
+  public function cerrarSesion()
+  {
+    unset(
+          $_SESSION['SESION_INICIADA'],
+          $_SESSION['USUARIO_ID'],
+          $_SESSION['EMAIL']
+        );
+
+    session_unset();
+    session_destroy();
+
+    header('Location:' . URL . 'home/inicioSesion');
+    exit;
   }
 
   public function registro()
@@ -142,4 +186,13 @@ class Home extends Controller
     require APP . 'view/home/recuperarPassword.php';
     require APP . 'view/_templates/footer.php';
   }
+
+  public function correoRecuperacionPassword()
+  {
+    if (isset($_POST['enviar']) && isset($_POST['email']))
+    {
+      echo "Here";
+    }
+  }
+
 }

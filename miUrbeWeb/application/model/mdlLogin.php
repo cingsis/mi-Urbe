@@ -30,7 +30,7 @@
         try {
           $this->db = $db;
         } catch (PDOException $e) {
-          exit('Cannot connected DB');
+          echo $e->getMessage();
         }
       }
 
@@ -47,6 +47,21 @@
           $stm->bindParam(6, $this->Imagen);
           $stm->bindParam(7, $this->FechaModificacion);
           $result = $stm->execute();
+          return $result;
+        } catch (PDOException $e) {
+          echo $e->getMessage();
+        }
+      }
+
+      public function consultarDatosUsuario()
+      {
+        $sql = "CAll SP_consultarDatosUsuario(?, ?)";
+        try {
+          $stm = $this->db->prepare($sql);
+          $stm->bindParam(1, $this->Correo);
+          $stm->bindParam(2, $this->Clave);
+          $stm->execute();
+          return $stm->fetchAll(PDO::FETCH_ASSOC);
           return $result;
         } catch (PDOException $e) {
           echo $e->getMessage();

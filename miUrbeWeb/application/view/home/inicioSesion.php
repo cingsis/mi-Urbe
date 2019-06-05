@@ -28,6 +28,16 @@
 
       <?php session_unset(); ?>
       <?php endif; ?>
+
+      <?php if (isset($_SESSION['message']) && isset($_SESSION['type']) &&
+                $_SESSION['type'] == "danger"): ?>
+
+        <div class="alert alert-<?= $_SESSION['type'] ?>" role="alert">
+          <i class="fas fa-exclamation-triangle"></i>&nbsp;<?= $_SESSION['message']; ?>
+        </div>
+
+      <?php session_unset(); ?>
+      <?php endif; ?>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3">
       &nbsp;
@@ -38,7 +48,7 @@
       <h1 class="titleingresar">Ingresar</h1>
     </div>
   </div>
-  <form class="form-horizontal" action="<?= URL; ?>home/validarInicioSesion" method="post" name="login" id="inicioSesion">
+  <form class="form-horizontal" action="<?= URL; ?>home/validarInicioSesion" method="post" name="login" id="inicioSesion" autocomplete="off">
     <div class="row">
       <div class="col-xs-12 col-sm12 col-md-4">
         <p>&nbsp;</p>
@@ -107,16 +117,16 @@
       <p>&nbsp;</p>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="#"><img src="<?= URL; ?>img/logo-facebook.jpg" alt=""></a>
+      <a href="#"><img src="<?= URL; ?>img/logo-facebook.jpg" alt="logo facebook"></a>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="#"><img src="<?= URL; ?>img/logo-google.jpg" alt=""></a>
+      <a href="#"><img src="<?= URL; ?>img/logo-google.jpg" alt="logo google"></a>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="#"><img src="<?= URL; ?>img/logo-instagram.jpg" alt=""></a>
+      <a href="#"><img src="<?= URL; ?>img/logo-instagram.jpg" alt="logo instagram"></a>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2">
-      <a href="#"><img src="<?= URL; ?>img/logo-twitter.jpg" alt=""></a>
+      <a href="#"><img src="<?= URL; ?>img/logo-twitter.jpg" alt="logo twitter"></a>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2">
       <p>&nbsp;</p>

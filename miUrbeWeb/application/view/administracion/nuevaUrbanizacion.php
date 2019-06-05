@@ -14,7 +14,7 @@
   </div>
 <br/>
 <br/>
-<form class="form-horizontal" action="#" method="post" enctype="multipart/form-data">
+<form class="form-horizontal" action="#" method="post" enctype="multipart/form-data" autocomplete="off">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-3">
         &nbsp;
