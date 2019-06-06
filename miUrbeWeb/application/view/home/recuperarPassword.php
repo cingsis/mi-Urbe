@@ -25,14 +25,14 @@
                 $_SESSION['errortype'] == "danger"): ?>
 
         <div class="alert alert-<?= $_SESSION['errortype'] ?>" role="alert">
-          <i class="fas fa-exclamation-triangle"></i>&nbsp;<?= $_SESSION['errorcampos']; ?>
+          <i class="fas fa-exclamation-triangle"></i>&nbsp;<?= $_SESSION['erroremail']; ?>
         </div>
 
       <?php session_unset(); ?>
       <?php endif; ?>
 
       <?php if (isset($_SESSION['message']) && isset($_SESSION['type']) &&
-                $_SESSION['type'] == "danger"): ?>
+                $_SESSION['type'] == "success"): ?>
 
         <div class="alert alert-<?= $_SESSION['type'] ?>" role="alert">
           <i class="fas fa-exclamation-triangle"></i>&nbsp;<?= $_SESSION['message']; ?>

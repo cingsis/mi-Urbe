@@ -21,5 +21,6 @@
     <script src="<?php echo URL; ?>js/registro.js"></script>
     <script src="<?php echo URL; ?>js/login.js"></script>
     <script src="<?php echo URL; ?>js/resetPassword.js"></script>
+    <script src="<?php echo URL; ?>js/reestablecerPass.js"></script>
 </body>
 </html>

@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="<?php echo URL ?>css/nuevaUrbanizacion.css">
     <link rel="stylesheet" href="<?php echo URL ?>css/cantidadUrbanizaciones.css">
     <link rel="stylesheet" href="<?php echo URL ?>css/resetPassword.css">
+    <link rel="stylesheet" href="<?php echo URL ?>css/reestablecerPass.css">
     <link rel="stylesheet" href="<?php echo URL ?>fonts/grand-hotel.ttf">
 
     <!-- Font Awesome -->

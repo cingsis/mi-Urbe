@@ -89,7 +89,7 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4">
         <p class="right">
-          <a href="<?= URL; ?>home/recuperarPassword">Recordar mi contraseña</a>
+          <a href="<?= URL; ?>home/recuperarPassword">Recuperar mi contraseña</a>
         </p>
       </div>
     </div>

@@ -3,10 +3,12 @@
 class Home extends Controller
 {
   private $mdlLogin;
+  private $mdlUsers;
 
   public function __construct()
   {
     $this->mdlLogin = $this->LoadModel('mdlLogin');
+    $this->mdlUsers = $this->LoadModel('mdlUsers');
   }
 
   private function Encrypt($string)
@@ -191,8 +193,115 @@ class Home extends Controller
   {
     if (isset($_POST['enviar']) && isset($_POST['email']))
     {
-      echo "Here";
+      $this->mdlUsers->__SET('Correo', $_POST['email']);
+      $user = $this->mdlUsers->consultarEmailUser();
+
+        if (!empty($user[0]['Correo']) && count($user[0]['Correo']) >= 1)
+        {
+          // $destinatario = "jvargasp@maaji.co";
+          $destinatario = $user[0]['Correo'];
+
+          //Titulo
+          $asunto = "mi URBE RECUPERACIÓN DE CONTRASEÑA";
+
+          //Cuerpo
+          $cuerpo = "";
+          $cuerpo = '
+          <!DOCTYPE html>
+          <head>
+          <title>RECUPERACIÓN DE CONTRASEÑA NO REPLY</title>
+          </head>
+          <body>
+          <h1>Hola!';
+          $cuerpo .=  $user[0]['Correo'] . '</h1>';
+          $cuerpo .= '<p>Para poder reestablecer su contraseña por favor ingresar al siguiente ';
+          $cuerpo .= '<a href="' . URL .'home/reestablecerClave?correo="' . $user[0]['Correo'] . '"&verificado="' . sha1(md5(true)) . '">enlace</a>';
+          $cuerpo .= '</p></body></html>';
+
+          //cabecera
+          $headers = "MIME-Version: 1.0\r\n";
+          $headers .= "Content-type: text/html; charset=utf-8\r\n";
+
+          //dirección del remitente
+          $headers .= "From: mi Urbe <juandeveloper1990@gmail.com>\r\n";
+
+          //Enviamos el mensaje a tu dirección de email
+          mail($destinatario,$asunto,$cuerpo,$headers);
+
+          $_SESSION['type'] = "success";
+          $_SESSION['message'] = "Por favor revisa el correo para continuar con el reestablecimiento de tu clave";
+          header("Location: " . URL . "home/recuperarPassword");
+          exit;
+        }
+
+        if (empty($user[0]['Correo']))
+        {
+          $_SESSION['errortype'] = "danger";
+          $_SESSION['erroremail'] = "No se encontrarón registros del correo ingresado";
+          header("Location: " . URL . "home/recuperarPassword");
+          exit;
+        }
     }
+    else
+    {
+      header("Location: " . URL . "home/recuperarPassword");
+      exit;
+    }
+  }
+
+  public function reestablecerClave()
+  {
+    //0937afa17f4dc08f3c0e5dc908158370ce64df86 --> true encriptado
+    if (isset($_GET['verificado']) && $_GET['verificado'] == sha1(md5(TRUE)))
+    {
+      require APP . 'view/_templates/header.php';
+      require APP . 'view/home/reestablecerClave.php';
+      require APP . 'view/_templates/footer.php';
+    }
+
+    else
+    {
+      header("Location: " . URL . "home/recuperarPassword");
+      exit;
+    }
+  }
+
+  public function actualizarClave()
+  {
+    if (isset($_POST['actualizarclave']) && isset($_POST['newpassword']))
+    {
+      $pass = $_POST['newpassword'];
+      $repeatPass = $_POST['repeatNewPassword'];
+      $correo = "juan@gmail.com";
+
+      if ($pass === $repeatPass)
+      {
+        $this->mdlUsers->__SET('Correo', $correo);
+        $this->mdlUsers->__SET('Clave', $this->Encrypt($pass));
+        $this->mdlUsers->actualizarClave();
+
+        $_SESSION['type'] = "success";
+        $_SESSION['message'] = "La clave ha sido actualizada correctamente, ya puedes <a href='" . URL ."home/inicioSesion' style='text-decoration: none;'>Ingresar</a>";
+        header("Location: " . URL . "home/reestablecerClave?verificado=" . sha1(md5(TRUE)));
+        exit;
+      }
+
+      else
+      {
+        $_SESSION['errortype'] = "danger";
+        $_SESSION['errorclaves'] = "Las claves ingresadas no son iguales";
+        header("Location: " . URL . "home/reestablecerClave?verificado=" . sha1(md5(TRUE)));
+        exit;
+      }
+
+    }
+
+    else
+    {
+      header("Location: " . URL . "home/recuperarPassword");
+      exit;
+    }
+
   }
 
 }
