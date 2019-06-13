@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2019 a las 03:53:38
+-- Tiempo de generación: 23-04-2019 a las 21:48:22
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -20,52 +20,6 @@ SET time_zone = "+00:00";
 -- Base de datos: `mi_urbe`
 --
 
-DELIMITER $$
---
--- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_actualizarClave` (IN `_correo` VARCHAR(50) CHARSET utf8, IN `_clave` VARCHAR(255) CHARSET utf8)  NO SQL
-UPDATE utb_usuario
-SET Clave = _clave
-WHERE Correo = _correo$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consultarDatosUsuario` (IN `_correo` VARCHAR(100) CHARSET utf8, IN `_Clave` VARCHAR(255) CHARSET utf8)  NO SQL
-SELECT
-Correo, Clave
-FROM utb_usuario
-WHERE Correo = _Correo
-AND Clave = _Clave$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consultarEmailUser` (IN `_correo` VARCHAR(50) CHARSET utf8)  NO SQL
-SELECT
-Correo
-FROM utb_usuario
-WHERE correo = _correo$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_consultarMonedas` ()  NO SQL
-SELECT 
-IdMoneda,
-SiglasMoneda,
-NombreMoneda
-FROM utb_moneda$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_insertarNuevoUsuario` (IN `_NombreUsuario` VARCHAR(30) CHARSET utf8, IN `_Correo` VARCHAR(50) CHARSET utf8, IN `_Clave` VARCHAR(255) CHARSET utf8, IN `_NumeroCelular` VARCHAR(20) CHARSET utf8, IN `_IdTipoAutenticacion` INT, IN `_Imagen` VARCHAR(255) CHARSET utf8, IN `_FechaModificacion` VARCHAR(20) CHARSET utf8)  NO SQL
-INSERT INTO utb_usuario (IdUsuario, NombreUsuario, Correo, Clave, NumeroCelular, IdTipoAutenticacion, Imagen, FechaCreacion, FechaModificacion)
-VALUES
-(
-	NULL,
-    _NombreUsuario,
-    _Correo,
-    _Clave,
-    _NumeroCelular,
-    _IdTipoAutenticacion,
-    _Imagen,
-    NULL,
-    _FechaModificacion
-)$$
-
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -78,7 +32,6 @@ CREATE TABLE `utb_accesousuario` (
   `IdAccesoUsuario` int(11) NOT NULL,
   `IdTipoUsuario` int(11) NOT NULL,
   `IdEstadoUsuario` int(11) NOT NULL,
-  `IdMoneda` int(11) NOT NULL,
   `NumeroApartamento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -115,9 +68,7 @@ CREATE TABLE `utb_estadousuario` (
 
 INSERT INTO `utb_estadousuario` (`IdEstadoUsuario`, `EstadoUsuario`) VALUES
 (1, 'Activo'),
-(2, 'Inactivo'),
-(3, 'Pendiente Activacion'),
-(4, 'Bloqueado');
+(2, 'Inactivo');
 
 -- --------------------------------------------------------
 
@@ -156,26 +107,6 @@ CREATE TABLE `utb_mensaje` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `utb_moneda`
---
-
-CREATE TABLE `utb_moneda` (
-  `IdMoneda` int(11) NOT NULL,
-  `SiglasMoneda` varchar(5) NOT NULL,
-  `NombreMoneda` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `utb_moneda`
---
-
-INSERT INTO `utb_moneda` (`IdMoneda`, `SiglasMoneda`, `NombreMoneda`) VALUES
-(1, 'COP', 'Pesos Colombianos'),
-(2, 'USD', 'Dolares Americanos');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `utb_tipoautenticacion`
 --
 
@@ -183,17 +114,6 @@ CREATE TABLE `utb_tipoautenticacion` (
   `IdTipoAutenticacion` int(11) NOT NULL,
   `TipoAutenticacion` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `utb_tipoautenticacion`
---
-
-INSERT INTO `utb_tipoautenticacion` (`IdTipoAutenticacion`, `TipoAutenticacion`) VALUES
-(1, 'Directa'),
-(2, 'Facebook'),
-(3, 'Instagram'),
-(4, 'Google'),
-(5, 'Twitter');
 
 -- --------------------------------------------------------
 
@@ -216,16 +136,6 @@ CREATE TABLE `utb_tipousuario` (
   `IdTipoUsuario` int(11) NOT NULL,
   `TipoUsuario` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `utb_tipousuario`
---
-
-INSERT INTO `utb_tipousuario` (`IdTipoUsuario`, `TipoUsuario`) VALUES
-(1, 'Propietario'),
-(2, 'Residente'),
-(3, 'Propietario y Residente'),
-(4, 'Empleado');
 
 -- --------------------------------------------------------
 
@@ -256,19 +166,11 @@ CREATE TABLE `utb_usuario` (
   `NombreUsuario` varchar(30) NOT NULL,
   `Correo` varchar(50) NOT NULL,
   `Clave` varchar(255) NOT NULL,
-  `NumeroCelular` varchar(20) NOT NULL,
-  `IdTipoAutenticacion` int(11) NOT NULL,
-  `Imagen` varchar(100) DEFAULT NULL,
+  `idTipoAutenticacion` int(11) NOT NULL,
+  `Imagen` varchar(255) DEFAULT NULL,
   `FechaCreacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `FechaModificacion` varchar(20) DEFAULT NULL
+  `FechaModificacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `utb_usuario`
---
-
-INSERT INTO `utb_usuario` (`IdUsuario`, `NombreUsuario`, `Correo`, `Clave`, `NumeroCelular`, `IdTipoAutenticacion`, `Imagen`, `FechaCreacion`, `FechaModificacion`) VALUES
-(1, 'Juan', 'juan@gmail.com', 'a7d579ba76398070eae654c30ff153a4c273272a', '3114569823', 1, '', '2019-04-30 15:13:09', '');
 
 --
 -- Índices para tablas volcadas
@@ -282,8 +184,7 @@ ALTER TABLE `utb_accesousuario`
   ADD KEY `UTBAccesoUsuario_IdUrbanizacion` (`IdUrbanizacion`),
   ADD KEY `UTBAccesoUsuario_IdAccesoUsuario` (`IdAccesoUsuario`),
   ADD KEY `UTBAccesoUsuario_IdTipoUsuario` (`IdTipoUsuario`),
-  ADD KEY `UTBAccesoUsuario_IdEstadoUsuario` (`IdEstadoUsuario`),
-  ADD KEY `utbAccesoUsuario_IdMoneda` (`IdMoneda`);
+  ADD KEY `UTBAccesoUsuario_IdEstadoUsuario` (`IdEstadoUsuario`);
 
 --
 -- Indices de la tabla `utb_administrador`
@@ -316,12 +217,6 @@ ALTER TABLE `utb_mensaje`
   ADD KEY `UTBMensaje_IdTipoMensaje` (`IdTipoMensaje`);
 
 --
--- Indices de la tabla `utb_moneda`
---
-ALTER TABLE `utb_moneda`
-  ADD PRIMARY KEY (`IdMoneda`);
-
---
 -- Indices de la tabla `utb_tipoautenticacion`
 --
 ALTER TABLE `utb_tipoautenticacion`
@@ -350,7 +245,7 @@ ALTER TABLE `utb_urbanizacion`
 --
 ALTER TABLE `utb_usuario`
   ADD PRIMARY KEY (`IdUsuario`),
-  ADD KEY `idTipoAutenticacion_UTB_Usuario` (`IdTipoAutenticacion`);
+  ADD KEY `idTipoAutenticacion_UTB_Usuario` (`idTipoAutenticacion`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -370,7 +265,7 @@ ALTER TABLE `utb_administrador`
 -- AUTO_INCREMENT de la tabla `utb_estadousuario`
 --
 ALTER TABLE `utb_estadousuario`
-  MODIFY `IdEstadoUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `IdEstadoUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `utb_log`
 --
@@ -382,15 +277,10 @@ ALTER TABLE `utb_log`
 ALTER TABLE `utb_mensaje`
   MODIFY `IdMensaje` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `utb_moneda`
---
-ALTER TABLE `utb_moneda`
-  MODIFY `IdMoneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT de la tabla `utb_tipoautenticacion`
 --
 ALTER TABLE `utb_tipoautenticacion`
-  MODIFY `IdTipoAutenticacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `IdTipoAutenticacion` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `utb_tipomensaje`
 --
@@ -400,7 +290,7 @@ ALTER TABLE `utb_tipomensaje`
 -- AUTO_INCREMENT de la tabla `utb_tipousuario`
 --
 ALTER TABLE `utb_tipousuario`
-  MODIFY `IdTipoUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `IdTipoUsuario` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `utb_urbanizacion`
 --
@@ -410,7 +300,7 @@ ALTER TABLE `utb_urbanizacion`
 -- AUTO_INCREMENT de la tabla `utb_usuario`
 --
 ALTER TABLE `utb_usuario`
-  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --
@@ -422,8 +312,7 @@ ALTER TABLE `utb_accesousuario`
   ADD CONSTRAINT `utb_accesousuario_ibfk_1` FOREIGN KEY (`IdAccesoUsuario`) REFERENCES `utb_usuario` (`IdUsuario`) ON UPDATE CASCADE,
   ADD CONSTRAINT `utb_accesousuario_ibfk_2` FOREIGN KEY (`IdTipoUsuario`) REFERENCES `utb_tipousuario` (`IdTipoUsuario`) ON UPDATE CASCADE,
   ADD CONSTRAINT `utb_accesousuario_ibfk_3` FOREIGN KEY (`IdEstadoUsuario`) REFERENCES `utb_estadousuario` (`IdEstadoUsuario`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `utb_accesousuario_ibfk_4` FOREIGN KEY (`IdUrbanizacion`) REFERENCES `utb_urbanizacion` (`IdUrbanizacion`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `utb_accesousuario_ibfk_5` FOREIGN KEY (`IdMoneda`) REFERENCES `utb_moneda` (`IdMoneda`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `utb_accesousuario_ibfk_4` FOREIGN KEY (`IdUrbanizacion`) REFERENCES `utb_urbanizacion` (`IdUrbanizacion`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `utb_log`
@@ -445,7 +334,7 @@ ALTER TABLE `utb_mensaje`
 -- Filtros para la tabla `utb_usuario`
 --
 ALTER TABLE `utb_usuario`
-  ADD CONSTRAINT `fk_utbUsuario_idTipoAutenticacion` FOREIGN KEY (`IdTipoAutenticacion`) REFERENCES `utb_tipoautenticacion` (`IdTipoAutenticacion`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `utb_usuario_ibfk_1` FOREIGN KEY (`idTipoAutenticacion`) REFERENCES `utb_tipoautenticacion` (`IdTipoAutenticacion`) ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

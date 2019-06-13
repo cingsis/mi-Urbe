@@ -46,6 +46,9 @@
 input{
   background-color: #E8EAEC !important;
 }
+select{
+  background-color: #E8EAEC !important;
+}
 
 #breadcrumb{
   float: left !important;

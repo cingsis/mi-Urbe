@@ -67,7 +67,7 @@ class Home extends Controller
               $_SESSION['USUARIO_ID'] = $value['idUsuario'];
               $_SESSION['EMAIL'] = $value['Correo'];
 
-              header("Location: " . URL . "administracion/dashboard");
+              header("Location: " . URL . "users/cartelera");
               exit;
             }
           }
